@@ -8,6 +8,7 @@ import CartList from './cart/CartList';
 import { ToastContainer, toast } from 'react-toastify';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import Footer from './footer/Footer';
 
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
     }
     console.log('Logging in with:', checklogin);
   }
+
   //sử lý sự kiện add sản phẩm vào giỏ hàng
   const HandleAddProduct = (product) => {
     const existingProduct = cart.find(item => item.id === product.id);
@@ -79,12 +81,15 @@ function App() {
     setProducts(updatedProducts);
   };
 
+  //sử lý sự kiện xóa sản phẩm trong giỏ hàng
   const HandleDelete = (id) => {
     const deleteProduct = cart.filter(cart => cart.id !== id);
     setCart(deleteProduct);
     console.log('check card', deleteProduct)
     toast.info("Delete product success!")
   }
+
+  //sử lý sự kiện thanh toán
   const HandlePayNow = () => {
     // Tính tổng số tiền trong giỏ hàng
     const totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
@@ -131,6 +136,9 @@ function App() {
           theme="light"
         />
       </body>
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 }
