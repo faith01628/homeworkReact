@@ -15,6 +15,7 @@ function App() {
   const [Users, setUser] = useState([]);
   const [products, setProducts] = useState([]);
   const [filterProduct, setFilterProduct] = useState([]);
+  const [cart, setCart] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,8 +49,62 @@ function App() {
   }
   //sử lý sự kiện add sản phẩm vào giỏ hàng
   const HandleAddProduct = (product) => {
+    const existingProduct = cart.find(item => item.id === product.id);
 
+    if (existingProduct) {
+      if (product.quantity - existingProduct.quantity > 0) {
+        const updatedCart = cart.map(item => {
+          if (item.id === product.id) {
+            return { ...item, quantity: item.quantity + 1 };
+          }
+          return item;
+        });
+        setCart(updatedCart);
+        toast.success("Add to cart success");
+      }
+    } else {
+      if (product.quantity > 0) {
+        setCart([...cart, { ...product, quantity: 1 }]);
+      }
+      toast.success("Add to cart success");
+    }
+
+    // Kiểm tra và ẩn sản phẩm khi số lượng nó về 0
+    const updatedProducts = products.map(item => {
+      if (item.id === product.id && item.quantity === 0) {
+        item.quantity = 0;
+      }
+      return item;
+    });
+    setProducts(updatedProducts);
   };
+
+  const HandleDelete = (id) => {
+    const deleteProduct = cart.filter(cart => cart.id !== id);
+    setCart(deleteProduct);
+    console.log('check card', deleteProduct)
+    toast.info("Delete product success!")
+  }
+  const HandlePayNow = () => {
+    // Tính tổng số tiền trong giỏ hàng
+    const totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    console.log('check total', totalPrice)
+    // Cập nhật số lượng sản phẩm sau khi thanh toán
+    const updatedProducts = products.map(product => {
+      const cartItem = cart.find(item => item.id === product.id);
+      if (cartItem) {
+        product.quantity -= cartItem.quantity;
+      }
+      return product;
+    });
+    // Xóa toàn bộ sản phẩm khỏi giỏ hàng
+    setCart([])
+    // Cập nhật danh sách sản phẩm sau khi thanh toán
+    setProducts(updatedProducts);
+    // Hiển thị thông báo với tổng số tiền
+    toast.success(`You have successfully paid the total amount of $${totalPrice}`);
+    navigate('/product')
+  }
 
   return (
     <div className="App">
@@ -60,7 +115,7 @@ function App() {
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/product" element={<ProductList products={filterProduct} addProduct={HandleAddProduct} />} />
-          <Route path="/shoppingcart" element={<CartList />} />
+          <Route path="/shoppingcart" element={<CartList cart={cart} onDelete={HandleDelete} onPayNow={HandlePayNow} />} />
           <Route path="/Login" element={<Login onLogin={handleLogin} />} />
         </Routes>
         <ToastContainer
