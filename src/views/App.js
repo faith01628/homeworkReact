@@ -1,4 +1,4 @@
-import '../style/App.scss';
+import '../styles/App.scss';
 import 'react-toastify/dist/ReactToastify.css';
 import Nav from './nav/Nav';
 import Home from './home/Home';
@@ -8,9 +8,13 @@ import CartList from './cart/CartList';
 import { ToastContainer, toast } from 'react-toastify';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+
+
 function App() {
 
   const [Users, setUser] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [filterProduct, setFilterProduct] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,8 +25,17 @@ function App() {
       })
       .catch((error) => console.log('error reading json', error));
   }, []);
+  useEffect(() => {
+    fetch('products.json')
+      .then((response) => response.json())
+      .then((data) => {
+        setProducts(data);
+        setFilterProduct(data);
+      })
+      .catch((error) => console.log('error reading json', error));
+  }, []);
 
-  //sử lý login
+  //sử lý hàm login
   const handleLogin = (checklogin) => {
     const userFound = Users.find((user) => user.username === checklogin.username && user.password === checklogin.password);
     if (userFound) {
@@ -33,6 +46,10 @@ function App() {
     }
     console.log('Logging in with:', checklogin);
   }
+  //sử lý sự kiện add sản phẩm vào giỏ hàng
+  const HandleAddProduct = (product) => {
+
+  };
 
   return (
     <div className="App">
@@ -42,7 +59,7 @@ function App() {
       <body>
         <Routes>
           <Route path="/home" element={<Home />} />
-          <Route path="/product" element={<ProductList />} />
+          <Route path="/product" element={<ProductList products={filterProduct} addProduct={HandleAddProduct} />} />
           <Route path="/shoppingcart" element={<CartList />} />
           <Route path="/Login" element={<Login onLogin={handleLogin} />} />
         </Routes>
