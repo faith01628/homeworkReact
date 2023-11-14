@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "img": "https://cdn.tgdd.vn/Products/Images/42/114110/iphone-8-plus-hh-600x600-600x600.jpg",
+        "name": "iphone 8 plus",
+        "price": 500,
+        "quantity": 10,
+        "description": "ueiwnfjdghsaoeihjfoihbnxsaoiuhef"
+    },
+    {
+        "id": 2,
+        "img": "https://cdn.tgdd.vn/Products/Images/42/114115/iphone-x-64gb-bac-org.png",
+        "name": "iphone x",
+        "price": 900,
+        "quantity": 10,
+        "description": "ueiwnfjdghsaoeihjfoihbnxsaoiuhef"
+    },
+    {
+        "id": 3,
+        "img": "https://cdn.tgdd.vn/Products/Images/42/114115/iphone-x-64gb-bac-org.png",
+        "name": "iphone 11",
+        "price": 1500,
+        "quantity": 10,
+        "description": "ueiwnfjdghsaoeihjfoihbnxsaoiuhef"
+    },
+    {
+        "id": 4,
+        "img": "https://cdn.tgdd.vn/Products/Images/42/114115/iphone-x-64gb-bac-org.png",
+        "name": "iphone 11 pro max",
+        "price": 2000,
+        "quantity": 10,
+        "description": "ueiwnfjdghsaoeihjfoihbnxsaoiuhef"
+    }
+]
