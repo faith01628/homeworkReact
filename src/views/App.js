@@ -6,7 +6,7 @@ import Login from './login/Login';
 import ProductList from './product/ProductList';
 import CartList from './cart/CartList';
 import { ToastContainer, toast } from 'react-toastify';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Footer from './footer/Footer';
 
@@ -18,6 +18,8 @@ function App() {
   const [filterProduct, setFilterProduct] = useState([]);
   const [cart, setCart] = useState([]);
   const navigate = useNavigate();
+  const [samsungProduct, setSamsungProduct] = useState([]);
+  const [iphoneProduct, setIphoneProduct] = useState([]);
 
   useEffect(() => {
     fetch('account.json')
@@ -26,13 +28,16 @@ function App() {
         setUser(data);
       })
       .catch((error) => console.log('error reading json', error));
-  }, []);
-  useEffect(() => {
+
     fetch('products.json')
       .then((response) => response.json())
       .then((data) => {
+        const productSamsung = data;
+        const productIphone = data;
         setProducts(data);
         setFilterProduct(data);
+        setSamsungProduct(productSamsung.filter(p => p.brand === "samsung").slice(0, 2));
+        setIphoneProduct(productIphone.filter(p => p.brand === "iphone").slice(0, 2));
       })
       .catch((error) => console.log('error reading json', error));
   }, []);
@@ -43,6 +48,7 @@ function App() {
     if (userFound) {
       navigate('/home');
       toast.success("Login success!")
+      localStorage.setItem('username', checklogin.username);
     } else {
       toast.error("Login failed, check username and password again!")
     }
@@ -110,18 +116,34 @@ function App() {
     toast.success(`You have successfully paid the total amount of $${totalPrice}`);
     navigate('/product')
   }
+  //xóa dữ liệu localStorage
+  const deteteLocalStorage = () => {
+    localStorage.clear();
+  }
 
   return (
     <div className="App">
       <nav>
-        <Nav />
+        <Nav clearLocal={deteteLocalStorage} />
       </nav>
       <body>
         <Routes>
-          <Route path="/home" element={<Home />} />
-          <Route path="/product" element={<ProductList products={filterProduct} addProduct={HandleAddProduct} />} />
-          <Route path="/shoppingcart" element={<CartList cart={cart} onDelete={HandleDelete} onPayNow={HandlePayNow} />} />
-          <Route path="/Login" element={<Login onLogin={handleLogin} />} />
+          <Route path="/home" element={localStorage.getItem('username') ? (
+            <Home iphoneProduct={iphoneProduct} samsungProduct={samsungProduct} />
+          ) : (<Navigate to="/" />)
+          } />
+          <Route path="/product" element={
+            localStorage.getItem('username') ? (
+              <>
+                <ProductList products={filterProduct} addProduct={HandleAddProduct} />
+              </>
+            ) : (<Navigate to="/" />)
+          } />
+          <Route path="/shoppingcart" element={
+            localStorage.getItem('username') ? (<CartList cart={cart} onDelete={HandleDelete} onPayNow={HandlePayNow} />
+            ) : (<Navigate to="/" />)
+          } />
+          <Route path="/" element={<Login onLogin={handleLogin} />} />
         </Routes>
         <ToastContainer
           position="top-right"

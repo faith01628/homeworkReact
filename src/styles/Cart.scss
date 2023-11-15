@@ -13,6 +13,7 @@
     }
 
     button {
+        border-radius: 5px;
         background-color: red;
         color: white;
         border: none;
@@ -22,13 +23,14 @@
 }
 
 .paybtn {
-    background-color: #ff6600;
+    border-radius: 5px;
+    background-color: #008cff;
     color: #fff;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
     position: absolute;
-    bottom: 10px;
+    bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
     width: 30%;

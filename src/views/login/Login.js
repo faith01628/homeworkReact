@@ -1,4 +1,4 @@
-import "../../style/Login.scss"
+import "../../styles/Login.scss"
 import React, { useState } from 'react';
 const Login = ({ onLogin }) => {
     const [username, setUsername] = useState('');
