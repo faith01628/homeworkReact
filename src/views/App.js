@@ -9,6 +9,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Footer from './footer/Footer';
+import SearchName from './search/SearchName';
+import SearchPrice from './search/SearchPrice';
+import SearchProductType from './search/SearchProductType';
 
 
 function App() {
@@ -17,9 +20,11 @@ function App() {
   const [products, setProducts] = useState([]);
   const [filterProduct, setFilterProduct] = useState([]);
   const [cart, setCart] = useState([]);
-  const navigate = useNavigate();
+  const [searchName, setSeachName] = useState([]);
   const [samsungProduct, setSamsungProduct] = useState([]);
   const [iphoneProduct, setIphoneProduct] = useState([]);
+  const [asusProduct, setAsusProduct] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch('account.json')
@@ -34,10 +39,12 @@ function App() {
       .then((data) => {
         const productSamsung = data;
         const productIphone = data;
+        const productAsus = data;
         setProducts(data);
         setFilterProduct(data);
         setSamsungProduct(productSamsung.filter(p => p.brand === "samsung").slice(0, 2));
         setIphoneProduct(productIphone.filter(p => p.brand === "iphone").slice(0, 2));
+        setAsusProduct(productAsus.filter(p => p.brand === "asus").slice(0, 2));
       })
       .catch((error) => console.log('error reading json', error));
   }, []);
@@ -49,10 +56,10 @@ function App() {
       navigate('/home');
       toast.success("Login success!")
       localStorage.setItem('username', checklogin.username);
+      localStorage.setItem('avata', userFound.avata);
     } else {
       toast.error("Login failed, check username and password again!")
     }
-    console.log('Logging in with:', checklogin);
   }
 
   //sử lý sự kiện add sản phẩm vào giỏ hàng
@@ -116,9 +123,45 @@ function App() {
     toast.success(`You have successfully paid the total amount of $${totalPrice}`);
     navigate('/product')
   }
+
   //xóa dữ liệu localStorage
   const deteteLocalStorage = () => {
     localStorage.clear();
+  }
+
+  //search theo tên 
+  const hanldeSearchByName = (value) => {
+    setSeachName(value);
+    const dataSearchName = products.filter(pro => pro.name.toLowerCase().includes(value.toLowerCase()));
+    setFilterProduct(dataSearchName);
+  }
+
+  //search theo giá 
+  const HandleSearchByPrice = (searchPrice) => {
+    const minPriceValue = parseFloat(searchPrice.min);
+    const maxPriceValue = parseFloat(searchPrice.max);
+    if (isNaN(minPriceValue) || isNaN(maxPriceValue)) {
+      toast.warning("product cannot be left blank");
+    } else if (minPriceValue > maxPriceValue) {
+      toast.warning("The min value cannot be greater than the max value");
+    } else if (minPriceValue != null && maxPriceValue !== null) {
+      const filterPrice = filterProduct.filter(product => {
+        const productPrice = parseFloat(product.price);
+        return productPrice >= minPriceValue && productPrice <= maxPriceValue;
+      });
+      setFilterProduct(filterPrice);
+    }
+  }
+
+  //search theo loại sản phẩm
+  const hanldeSearchByProdcutType = (ProductType) => {
+    if (ProductType !== '') {
+      const filterProductType = products.filter(product => ProductType === product.product_type);
+      setFilterProduct(filterProductType);
+    } else {
+      setFilterProduct(products);
+    }
+
   }
 
   return (
@@ -129,12 +172,15 @@ function App() {
       <body>
         <Routes>
           <Route path="/home" element={localStorage.getItem('username') ? (
-            <Home iphoneProduct={iphoneProduct} samsungProduct={samsungProduct} />
+            <Home iphoneProduct={iphoneProduct} samsungProduct={samsungProduct} asusProduct={asusProduct} addProduct={HandleAddProduct} />
           ) : (<Navigate to="/" />)
           } />
           <Route path="/product" element={
             localStorage.getItem('username') ? (
               <>
+                <SearchProductType ProductType={hanldeSearchByProdcutType} />
+                <SearchPrice searchPrice={HandleSearchByPrice} />
+                <SearchName onSearch={hanldeSearchByName} searchName={searchName} />
                 <ProductList products={filterProduct} addProduct={HandleAddProduct} />
               </>
             ) : (<Navigate to="/" />)

@@ -12,7 +12,7 @@
     {
         "id": 2,
         "img": "https://cdn.tgdd.vn/Products/Images/42/114115/iphone-x-64gb-bac-org.png",
-        "name": "iphone x",
+        "name": "iphone xs max",
         "price": 900,
         "quantity": 10,
         "brand": "iphone",
@@ -37,6 +37,26 @@
         "quantity": 10,
         "brand": "samsung",
         "product_type": "mobile phone",
+        "description": "ueiwnfjdghsaoeihjfoihbnxsaoiuhef"
+    },
+    {
+        "id": 5,
+        "img": "https://phucuongpc.vn/uploads/t%E1%BA%A3i_xu%E1%BB%91ng2.png",
+        "name": "ASUS EXPERTBOOK B9",
+        "price": 5000,
+        "quantity": 10,
+        "brand": "asus",
+        "product_type": "laptop",
+        "description": "ueiwnfjdghsaoeihjfoihbnxsaoiuhef"
+    },
+    {
+        "id": 6,
+        "img": "https://synnexfpt.com/wp-content/uploads/2022/11/Asus-Tuf.png",
+        "name": "Asus Tuf",
+        "price": 7700,
+        "quantity": 10,
+        "brand": "asus",
+        "product_type": "laptop",
         "description": "ueiwnfjdghsaoeihjfoihbnxsaoiuhef"
     }
 ]

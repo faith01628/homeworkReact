@@ -12,13 +12,13 @@ const Nav = ({ checklogin, clearLocal }) => {
                     {
                         localStorage.getItem('username', checklogin) ? (
                             <>
-                                <span>
-                                    hello {localStorage.getItem('username')}
-                                </span>
                                 <NavLink to="/" onClick={clearLocal} >Logout</NavLink>
+                                <span className="info-user">
+                                    hello {localStorage.getItem('username')}
+                                    <img className="avata" src={localStorage.getItem('avata')} alt="avata" />
+                                </span>
                             </>
-                        )
-                            : (<NavLink to="/" >Login</NavLink>)}
+                        ) : (<NavLink to="/" >Login</NavLink>)}
                 </div>
             </div >
         </>

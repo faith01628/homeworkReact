@@ -2,11 +2,15 @@
     {
         "id": 1,
         "username": "huy",
-        "password": "123"
+        "password": "123",
+        "avata": "https://i.pinimg.com/736x/0a/41/0a/0a410aeb4e59e93cbc0a9e60f6e6366e.jpg",
+        "email": "huy@gmail.com"
     },
     {
         "id": 2,
         "username": "admin",
-        "password": "321"
+        "password": "321",
+        "avata": "https://www.vietnamfineart.com.vn/wp-content/uploads/2023/03/665499a64747c2ba370e369b526b6849-2.jpg",
+        "email": "admin@gmail.com"
     }
 ]

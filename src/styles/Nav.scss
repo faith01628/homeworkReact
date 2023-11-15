@@ -2,6 +2,9 @@
 .topnav {
     background-color: rgb(16, 183, 216);
     overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* Style the links inside the navigation bar */
@@ -22,10 +25,46 @@
 
 /* Add a color to the active/current link */
 .topnav a.active {
-    background-color: #0095ff;
+    background-color: rgb(4, 152, 211);
     color: white;
 }
 
 .topnav .logout {
     margin-right: 20px;
 }
+
+.info-user {
+    display: flex;
+    align-items: center;
+    text-align: left;
+
+    .avata {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-left: 10px;
+        margin-right: 15px;
+        /* Đặt khoảng cách giữa avata và tên người dùng */
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    span {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        p {
+            margin: 5px 0;
+            color: white;
+            /* Đặt màu chữ thành màu trắng */
+        }
+    }
+}
+
+/* Rest of your existing code */
