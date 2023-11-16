@@ -1,15 +1,80 @@
-.box {
-    margin-top: 10%;
+.body {
+    margin-bottom: 40px;
 
-    .ipt-username {
-        margin-top: 10px;
-    }
+    .box {
+        margin-top: 15vh;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
 
-    .ipt-password {
-        margin-top: 10px;
-    }
+        h1 {
+            text-align: center;
+            color: #2ea0ec;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+        }
 
-    .btn-login {
-        margin-top: 10px;
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .ipt-username,
+            .ipt-password,
+            .btn-login {
+                margin-top: 20px;
+                width: 100%;
+
+                input,
+                button {
+                    width: 100%;
+                    padding: 15px;
+                    box-sizing: border-box;
+                }
+
+                input {
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    padding: 15px;
+                    font-size: 16px;
+                }
+
+                .ipt-password {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+
+                    input {
+                        margin-bottom: 10px;
+                    }
+
+                    .show-pass {
+                        margin-top: 5px;
+                        margin-left: 5px !important;
+                        align-self: flex-start;
+                        order: -1;
+                    }
+
+                }
+
+                button {
+                    margin-top: 20px; // Adjusted margin for the button
+                    background-color: #3498db;
+                    color: #fff;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    transition: background-color 0.3s;
+
+                    &:hover {
+                        background-color: #2980b9;
+                    }
+                }
+            }
+        }
     }
 }

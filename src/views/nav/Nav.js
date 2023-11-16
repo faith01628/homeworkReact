@@ -1,7 +1,8 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import '../../styles/Nav.scss'
 
 const Nav = ({ checklogin, clearLocal }) => {
+    const navigate = useNavigate();
     return (
         <>
             <div>
@@ -12,8 +13,7 @@ const Nav = ({ checklogin, clearLocal }) => {
                     {
                         localStorage.getItem('username', checklogin) ? (
                             <>
-                                <NavLink to="/" onClick={clearLocal} >Logout</NavLink>
-                                <span className="info-user">
+                                <span className="info-user" onClick={() => navigate('/profile')}>
                                     hello {localStorage.getItem('username')}
                                     <img className="avata" src={localStorage.getItem('avata')} alt="avata" />
                                 </span>

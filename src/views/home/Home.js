@@ -4,7 +4,7 @@ import '../../styles/Home.scss';
 const Home = ({ samsungProduct, iphoneProduct, asusProduct, addProduct }) => {
     return (
         <>
-            <div>
+            <div className="body">
                 <h1>Home Page</h1>
                 <h2>iphone</h2>
                 <div className="product-home-item">

@@ -11,7 +11,7 @@ const CartList = ({ cart, onDelete, onPayNow }) => {
         );
     } else {
         return (
-            <div>
+            <div className="body">
                 <h1>Cart Page</h1>
                 <div className="cart-item">
                     <table>

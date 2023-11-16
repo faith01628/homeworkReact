@@ -12,6 +12,9 @@ import Footer from './footer/Footer';
 import SearchName from './search/SearchName';
 import SearchPrice from './search/SearchPrice';
 import SearchProductType from './search/SearchProductType';
+import Profile from './profile/Profile';
+import EditProfile from './profile/EditProfile';
+
 
 
 function App() {
@@ -57,6 +60,10 @@ function App() {
       toast.success("Login success!")
       localStorage.setItem('username', checklogin.username);
       localStorage.setItem('avata', userFound.avata);
+      localStorage.setItem('email', userFound.email);
+      localStorage.setItem('address', userFound.address);
+      localStorage.setItem('phone', userFound.phone);
+      localStorage.setItem('Date_of_birth', userFound.Date_of_birth);
     } else {
       toast.error("Login failed, check username and password again!")
     }
@@ -164,12 +171,16 @@ function App() {
 
   }
 
+  const HandleUpdateProfile = () => {
+
+  }
+
   return (
     <div className="App">
       <nav>
-        <Nav clearLocal={deteteLocalStorage} />
+        <Nav />
       </nav>
-      <body>
+      <div>
         <Routes>
           <Route path="/home" element={localStorage.getItem('username') ? (
             <Home iphoneProduct={iphoneProduct} samsungProduct={samsungProduct} asusProduct={asusProduct} addProduct={HandleAddProduct} />
@@ -182,14 +193,11 @@ function App() {
                 <SearchPrice searchPrice={HandleSearchByPrice} />
                 <SearchName onSearch={hanldeSearchByName} searchName={searchName} />
                 <ProductList products={filterProduct} addProduct={HandleAddProduct} />
-              </>
-            ) : (<Navigate to="/" />)
-          } />
-          <Route path="/shoppingcart" element={
-            localStorage.getItem('username') ? (<CartList cart={cart} onDelete={HandleDelete} onPayNow={HandlePayNow} />
-            ) : (<Navigate to="/" />)
-          } />
+              </>) : (<Navigate to="/" />)} />
+          <Route path="/shoppingcart" element={localStorage.getItem('username') ? (<CartList cart={cart} onDelete={HandleDelete} onPayNow={HandlePayNow} />) : (<Navigate to="/" />)} />
           <Route path="/" element={<Login onLogin={handleLogin} />} />
+          <Route path="/profile" element={localStorage.getItem('username') ? (<Profile clearLocal={deteteLocalStorage} />) : (<Navigate to="/" />)} />
+          <Route path="/updateprofile" element={localStorage.getItem('username') ? (<EditProfile updateLocal={HandleUpdateProfile} />) : (<Navigate to="/" />)} />
         </Routes>
         <ToastContainer
           position="top-right"
@@ -203,7 +211,7 @@ function App() {
           pauseOnHover
           theme="light"
         />
-      </body>
+      </div>
       <footer>
         <Footer />
       </footer>
