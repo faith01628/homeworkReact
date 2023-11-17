@@ -3,6 +3,10 @@ import '../../styles/Nav.scss'
 
 const Nav = ({ checklogin, clearLocal }) => {
     const navigate = useNavigate();
+    const userString = localStorage.getItem('user');
+    const user = userString ? JSON.parse(userString) : null;
+    const userAvata = user ? user.avata : null;
+
     return (
         <>
             <div>
@@ -15,7 +19,7 @@ const Nav = ({ checklogin, clearLocal }) => {
                             <>
                                 <span className="info-user" onClick={() => navigate('/profile')}>
                                     hello {localStorage.getItem('username')}
-                                    <img className="avata" src={localStorage.getItem('avata')} alt="avata" />
+                                    {userAvata && <img className="avata" src={userAvata} alt="avata" />}
                                 </span>
                             </>
                         ) : (<NavLink to="/" >Login</NavLink>)}

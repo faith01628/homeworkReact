@@ -3,6 +3,13 @@ import { useNavigate } from 'react-router-dom';
 
 const Profile = ({ clearLocal }) => {
     const navigate = useNavigate();
+    const userString = localStorage.getItem('user');
+    const user = JSON.parse(userString);
+    const userAvata = user.avata;
+    const userEmail = user.email;
+    const userPhone = user.phone;
+    const userBirthday = user.date_of_birth;
+    const userAddress = user.address;
 
     const handleLogout = () => {
         clearLocal();
@@ -21,7 +28,7 @@ const Profile = ({ clearLocal }) => {
                     <div className="profile-item">
                         <div className='box-left'>
                             <div className="avata">
-                                <img src={localStorage.getItem('avata')} alt="avata" />
+                                <img src={userAvata} alt="avata" />
                             </div>
                             <div className="username">{localStorage.getItem('username')}</div>
                             <button className="editprofile" onClick={handleUdate}>Edit Profile</button>
@@ -36,10 +43,10 @@ const Profile = ({ clearLocal }) => {
                                         <span>Address: </span>
                                     </td>
                                     <td>
-                                        <div className="email">{localStorage.getItem('email')}</div>
-                                        <div className="phone">{localStorage.getItem('phone')}</div>
-                                        <div className="Date_of_birth">{localStorage.getItem('Date_of_birth')}</div>
-                                        <div className="address">{localStorage.getItem('address')}</div>
+                                        <div className="email">{userEmail}</div>
+                                        <div className="phone">{userPhone}</div>
+                                        <div className="date_of_birth">{userBirthday}</div>
+                                        <div className="address">{userAddress}</div>
                                     </td>
                                 </tr>
                             </table>

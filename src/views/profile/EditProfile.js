@@ -3,45 +3,31 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const EditProfile = () => {
-    const [email, setEmail] = useState(localStorage.getItem('email') || '');
-    const [phone, setPhone] = useState(localStorage.getItem('phone') || '');
-    const [birthday, setBirthday] = useState(localStorage.getItem('Date_of_birth') || '');
-    const [address, setAddress] = useState(localStorage.getItem('address') || '');
+    const userString = localStorage.getItem('user');
+    const user = JSON.parse(userString);
+    const userAvata = user.avata || '';
+    const userEmail = user.email || '';
+    const userPhone = user.phone || '';
+    const userBirthday = user.date_of_birth || '';
+    const userAddress = user.address || '';
+
+    const [email, setEmail] = useState(userEmail);
+    const [phone, setPhone] = useState(userPhone);
+    const [birthday, setBirthday] = useState(userBirthday);
+    const [address, setAddress] = useState(userAddress);
     const [avata, setAvata] = useState('');
     const navigate = useNavigate();
 
-    const handleEmailChange = (event) => {
-        const newEmail = event.target.value;
-        setEmail(newEmail);
+    //sử lý dữ liệu nhập từ input
+    const handleInputChange = (event, setStateFunction) => {
+        setStateFunction(event.target.value);
     };
-
-    const handleAddressChange = (event) => {
-        const newAddress = event.target.value;
-        setAddress(newAddress);
-    };
-
-    const handlePhoneChange = (event) => {
-        const newPhone = event.target.value;
-        setPhone(newPhone);
-    };
-
-    const handleBirthdayChange = (event) => {
-        const newBirthday = event.target.value;
-        setBirthday(newBirthday);
-    };
-    const handleImgChange = (event) => {
-        const newImg = event.target.value;
-        setAvata(newImg)
-    }
 
     const handleUpdate = () => {
-        const updatedAvata = avata.trim() !== '' ? avata : localStorage.getItem('avata') || '';
-        // Cập nhật dữ liệu vào localStorage
-        localStorage.setItem('email', email);
-        localStorage.setItem('phone', phone);
-        localStorage.setItem('Date_of_birth', birthday);
-        localStorage.setItem('address', address);
-        localStorage.setItem('avata', updatedAvata);
+        const updatedAvata = avata.trim() !== '' ? avata : userAvata || '';
+
+        const updatedUser = { email, phone, date_of_birth: birthday, address, avata: updatedAvata };
+        localStorage.setItem("user", JSON.stringify(updatedUser));
 
 
         // Chuyển hướng đến trang profile
@@ -52,7 +38,7 @@ const EditProfile = () => {
     useEffect(() => {
         // Hành động nếu có thay đổi trong state
         // (có thể làm gì đó nếu cần thiết)
-    }, [email, phone, birthday, address]);
+    }, [email, phone, birthday, address, avata]);
 
     return (
         <>
@@ -61,23 +47,23 @@ const EditProfile = () => {
                     <h1>Update Profile</h1>
                     <div className="profile-item">
                         <div className="avata">
-                            <img src={localStorage.getItem('avata')} alt="avata" />
+                            <img src={userAvata} alt="avata" />
                         </div>
                         <div className="username">{localStorage.getItem('username')}</div>
                         <div>
-                            <input value={avata} placeholder='Enter your link img' onChange={handleImgChange} />
+                            <input value={avata} placeholder='Enter your link img' onChange={(e) => handleInputChange(e, setAvata)} />
                         </div>
                         <div className='email'>
-                            <input value={email} placeholder='Enter your email' onChange={handleEmailChange} />
+                            <input value={email} placeholder='Enter your email' onChange={(e) => handleInputChange(e, setEmail)} />
                         </div>
                         <div className='phone'>
-                            <input value={phone} placeholder='Enter your phone' onChange={handlePhoneChange} />
+                            <input value={phone} placeholder='Enter your phone' onChange={(e) => handleInputChange(e, setPhone)} />
                         </div>
                         <div className='birthday'>
-                            <input value={birthday} placeholder='Enter your birthday' onChange={handleBirthdayChange} />
+                            <input value={birthday} placeholder='Enter your birthday' onChange={(e) => handleInputChange(e, setBirthday)} />
                         </div>
                         <div className='address'>
-                            <input value={address} placeholder='Enter your address' onChange={handleAddressChange} />
+                            <input value={address} placeholder='Enter your address' onChange={(e) => handleInputChange(e, setAddress)} />
                         </div>
                         <button onClick={handleUpdate}>Update</button>
                     </div>

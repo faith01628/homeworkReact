@@ -14,6 +14,7 @@ import SearchPrice from './search/SearchPrice';
 import SearchProductType from './search/SearchProductType';
 import Profile from './profile/Profile';
 import EditProfile from './profile/EditProfile';
+import ProductDetail from './product/ProductDetail';
 
 
 
@@ -27,7 +28,9 @@ function App() {
   const [samsungProduct, setSamsungProduct] = useState([]);
   const [iphoneProduct, setIphoneProduct] = useState([]);
   const [asusProduct, setAsusProduct] = useState([]);
+  // const [DetailProduct, setDetailProduct] = useState([]);
   const navigate = useNavigate();
+
 
   useEffect(() => {
     fetch('account.json')
@@ -59,17 +62,15 @@ function App() {
       navigate('/home');
       toast.success("Login success!")
       localStorage.setItem('username', checklogin.username);
-      localStorage.setItem('avata', userFound.avata);
-      localStorage.setItem('email', userFound.email);
-      localStorage.setItem('address', userFound.address);
-      localStorage.setItem('phone', userFound.phone);
-      localStorage.setItem('Date_of_birth', userFound.Date_of_birth);
+      // localStorage.setItem('avata', userFound.avata);
+      localStorage.setItem("user", JSON.stringify(userFound));
     } else {
       toast.error("Login failed, check username and password again!")
     }
   }
 
-  //sử lý sự kiện add sản phẩm vào giỏ hàng
+
+  //add sản phẩm vào giỏ hàng
   const HandleAddProduct = (product) => {
     const existingProduct = cart.find(item => item.id === product.id);
 
@@ -101,7 +102,7 @@ function App() {
     setProducts(updatedProducts);
   };
 
-  //sử lý sự kiện xóa sản phẩm trong giỏ hàng
+  //xóa sản phẩm trong giỏ hàng
   const HandleDelete = (id) => {
     const deleteProduct = cart.filter(cart => cart.id !== id);
     setCart(deleteProduct);
@@ -109,7 +110,7 @@ function App() {
     toast.info("Delete product success!")
   }
 
-  //sử lý sự kiện thanh toán
+  //sự kiện thanh toán
   const HandlePayNow = () => {
     // Tính tổng số tiền trong giỏ hàng
     const totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
@@ -171,9 +172,13 @@ function App() {
 
   }
 
-  const HandleUpdateProfile = () => {
+  //hiển thị chi tiết sản phẩm
+  // const handleDetailProduct = () => {
 
-  }
+  //   const productDetail = products.filter(item => item.id === products.id);
+  //   setDetailProduct(productDetail);
+  // }
+
 
   return (
     <div className="App">
@@ -197,7 +202,8 @@ function App() {
           <Route path="/shoppingcart" element={localStorage.getItem('username') ? (<CartList cart={cart} onDelete={HandleDelete} onPayNow={HandlePayNow} />) : (<Navigate to="/" />)} />
           <Route path="/" element={<Login onLogin={handleLogin} />} />
           <Route path="/profile" element={localStorage.getItem('username') ? (<Profile clearLocal={deteteLocalStorage} />) : (<Navigate to="/" />)} />
-          <Route path="/updateprofile" element={localStorage.getItem('username') ? (<EditProfile updateLocal={HandleUpdateProfile} />) : (<Navigate to="/" />)} />
+          <Route path="/updateprofile" element={localStorage.getItem('username') ? (<EditProfile />) : (<Navigate to="/" />)} />
+          <Route path="/product/:id" element={localStorage.getItem('username') ? (<ProductDetail addProduct={HandleAddProduct} />) : (<Navigate to="/" />)} />
         </Routes>
         <ToastContainer
           position="top-right"
