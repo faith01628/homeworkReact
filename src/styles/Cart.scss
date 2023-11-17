@@ -1,4 +1,4 @@
-.body {
+.Cart-container {
     margin-bottom: 40px;
 
     .cart-item {
@@ -49,4 +49,8 @@
             background-color: rgb(16, 184, 170);
         }
     }
+}
+
+.cart-no-product {
+    margin-bottom: 39%;
 }

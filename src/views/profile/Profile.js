@@ -22,38 +22,36 @@ const Profile = ({ clearLocal }) => {
 
     return (
         <>
-            <div className="body">
-                <div className='profile-container'>
-                    <h1>Profile Page</h1>
-                    <div className="profile-item">
-                        <div className='box-left'>
-                            <div className="avata">
-                                <img src={userAvata} alt="avata" />
-                            </div>
-                            <div className="username">{localStorage.getItem('username')}</div>
-                            <button className="editprofile" onClick={handleUdate}>Edit Profile</button>
+            <div className='profile-container'>
+                <h1>Profile Page</h1>
+                <div className="profile-item">
+                    <div className='box-left'>
+                        <div className="avata">
+                            <img src={userAvata} alt="avata" />
                         </div>
-                        <div className='box-right'>
-                            <table>
-                                <tr>
-                                    <td className='key'>
-                                        <span>Email: </span>
-                                        <span>Phone: </span>
-                                        <span>Birth day: </span>
-                                        <span>Address: </span>
-                                    </td>
-                                    <td>
-                                        <div className="email">{userEmail}</div>
-                                        <div className="phone">{userPhone}</div>
-                                        <div className="date_of_birth">{userBirthday}</div>
-                                        <div className="address">{userAddress}</div>
-                                    </td>
-                                </tr>
-                            </table>
-                            <button onClick={handleLogout}>Logout</button>
-                        </div>
-
+                        <div className="username">{localStorage.getItem('username')}</div>
+                        <button className="editprofile" onClick={handleUdate}>Edit Profile</button>
                     </div>
+                    <div className='box-right'>
+                        <table>
+                            <tr>
+                                <td className='key'>
+                                    <span>Email: </span>
+                                    <span>Phone: </span>
+                                    <span>Birth day: </span>
+                                    <span>Address: </span>
+                                </td>
+                                <td>
+                                    <div className="email">{userEmail}</div>
+                                    <div className="phone">{userPhone}</div>
+                                    <div className="date_of_birth">{userBirthday}</div>
+                                    <div className="address">{userAddress}</div>
+                                </td>
+                            </tr>
+                        </table>
+                        <button onClick={handleLogout}>Logout</button>
+                    </div>
+
                 </div>
             </div>
         </>

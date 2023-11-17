@@ -3,7 +3,7 @@ import ProductItem from './ProductItem';
 const ProductList = ({ products, addProduct }) => {
     return (
         <>
-            <div className="body">
+            <div className="product-container">
                 <h1>Product Page</h1>
                 <div className="product-item">
                     {products.map(product => (

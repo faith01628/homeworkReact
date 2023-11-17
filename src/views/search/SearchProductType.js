@@ -7,7 +7,7 @@ const SearchProductType = ({ ProductType }) => {
     }
 
     return (
-        <div>
+        <div className="search-by-type">
             <form>
                 <select id="productTypeSelect" onChange={searchProductType}>
                     <option value="">All products</option>

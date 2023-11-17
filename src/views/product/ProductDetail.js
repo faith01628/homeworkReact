@@ -1,37 +1,70 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-const ProductDetail = ({ addProduct, onClickProduct }) => {
+const ProductDetail = ({ addProduct }) => {
     const { id } = useParams();
-    const [product, setProducts] = useState([]);
+    const [product, setProducts] = useState(true)
 
     useEffect(() => {
-        fetch('../products.json')
-            .then((response) => response.json())
-            .then((data) => {
-                const selectedProduct = data.find((item) => item.id === id);
+        const fetchData = async () => {
+            try {
+                //đọc file json thứ nhất
+                const dataJson = await fetch('../products.json');
+                const data = await dataJson.json();
+
+                //lay book dua vao id
+                const selectedProduct = data.find((item) => item.id == id);
                 setProducts(selectedProduct);
-            })
-            .catch((error) => console.log('error reading json', error));
+
+            } catch (error) {
+                console.log('error reading json');
+            }
+        };
+        fetchData();
     }, [id]);
-    console.log("check product detail", product)
+
     if (!product) {
-        return <>
-            <div>Loading...</div>
-        </>
+        return (
+            <>
+                <div className="wait">
+                    <h1>
+                        Loading...
+                    </h1>
+                </div>
+            </>
+        )
     }
     return (
         <>
-            <div className="body">
-                <div>
-                    <img onClick={() => onClickProduct(product.id)} src={product.img} alt={product.name} />
-                    <h4>{product.name}</h4>
-                    <p>${product.price}</p>
-                    <p>Quantity: {product.quantity}</p>
-                    <p>Description{product.description}</p>
-                    <p>{product.brand}</p>
-                    <p>{product.product_type}</p>
-                    <button onClick={() => addProduct(product)} > Add To Cart</button>
+            <div className="ProductDetail-container">
+
+                <div key={product.id}>
+                    <div className="product-content-left">
+                        <img src={product.img} alt={product.name} />
+                        <button onClick={() => addProduct(product)} > Add To Cart</button>
+                    </div>
+                    <div className="product-content-right">
+                        <table>
+                            <tr>
+                                <td className='key'>
+                                    <span>Name: </span>
+                                    <span>Price: </span>
+                                    <span>Quantity: </span>
+                                    <span>Brand: </span>
+                                    <span>Product Type: </span>
+                                    <span>Description: </span>
+                                </td>
+                                <td>
+                                    <div className="name">{product.name}</div>
+                                    <div className="price">{product.price} $</div>
+                                    <div className="quantity">{product.quantity}</div>
+                                    <div className="brand">{product.brand}</div>
+                                    <div className="product_Type">{product.product_type}</div>
+                                    <div className="description">{product.description}</div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </>

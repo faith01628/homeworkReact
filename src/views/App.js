@@ -28,7 +28,7 @@ function App() {
   const [samsungProduct, setSamsungProduct] = useState([]);
   const [iphoneProduct, setIphoneProduct] = useState([]);
   const [asusProduct, setAsusProduct] = useState([]);
-  // const [DetailProduct, setDetailProduct] = useState([]);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
 
@@ -62,10 +62,11 @@ function App() {
       navigate('/home');
       toast.success("Login success!")
       localStorage.setItem('username', checklogin.username);
-      // localStorage.setItem('avata', userFound.avata);
       localStorage.setItem("user", JSON.stringify(userFound));
+      setError('');
     } else {
-      toast.error("Login failed, check username and password again!")
+      toast.error("Login failed")
+      setError('Please check username and password again!')
     }
   }
 
@@ -172,14 +173,6 @@ function App() {
 
   }
 
-  //hiển thị chi tiết sản phẩm
-  // const handleDetailProduct = () => {
-
-  //   const productDetail = products.filter(item => item.id === products.id);
-  //   setDetailProduct(productDetail);
-  // }
-
-
   return (
     <div className="App">
       <nav>
@@ -194,13 +187,17 @@ function App() {
           <Route path="/product" element={
             localStorage.getItem('username') ? (
               <>
-                <SearchProductType ProductType={hanldeSearchByProdcutType} />
-                <SearchPrice searchPrice={HandleSearchByPrice} />
-                <SearchName onSearch={hanldeSearchByName} searchName={searchName} />
-                <ProductList products={filterProduct} addProduct={HandleAddProduct} />
+                <div className='search'>
+                  <SearchProductType ProductType={hanldeSearchByProdcutType} />
+                  <SearchName onSearch={hanldeSearchByName} searchName={searchName} />
+                  <SearchPrice searchPrice={HandleSearchByPrice} />
+                </div>
+                <div>
+                  <ProductList products={filterProduct} addProduct={HandleAddProduct} />
+                </div>
               </>) : (<Navigate to="/" />)} />
           <Route path="/shoppingcart" element={localStorage.getItem('username') ? (<CartList cart={cart} onDelete={HandleDelete} onPayNow={HandlePayNow} />) : (<Navigate to="/" />)} />
-          <Route path="/" element={<Login onLogin={handleLogin} />} />
+          <Route path="/" element={<Login onLogin={handleLogin} error={error} />} />
           <Route path="/profile" element={localStorage.getItem('username') ? (<Profile clearLocal={deteteLocalStorage} />) : (<Navigate to="/" />)} />
           <Route path="/updateprofile" element={localStorage.getItem('username') ? (<EditProfile />) : (<Navigate to="/" />)} />
           <Route path="/product/:id" element={localStorage.getItem('username') ? (<ProductDetail addProduct={HandleAddProduct} />) : (<Navigate to="/" />)} />

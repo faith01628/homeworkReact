@@ -1,4 +1,4 @@
-.body {
+.product-container {
     margin-bottom: 40px;
 
     .product-item {
@@ -35,5 +35,85 @@
             }
         }
 
+    }
+}
+
+
+.ProductDetail-container {
+    display: flex;
+    padding: 20px;
+    margin: 20px auto;
+    /* Sửa đường margin: 20px; thành margin: 20px auto; */
+    width: 800px;
+    height: 400px;
+    border-radius: 10px;
+    background-color: #fff;
+
+    .product-content-left {
+        margin-top: 30px;
+        flex: 40%;
+        padding-right: 20px;
+
+        img {
+            margin-bottom: 20px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: rgb(39, 190, 254);
+            color: white;
+            border: none;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+
+            &:hover {
+                background-color: #2980b9;
+            }
+        }
+    }
+
+    .product-content-right {
+        margin-top: 50px;
+        margin-bottom: 80px;
+        flex: 60%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        span {
+            margin-left: 10px;
+            color: #777;
+            margin-bottom: 10px;
+            display: flex;
+        }
+
+        .name,
+        .price,
+        .quantity,
+        .brand,
+        .product_Type {
+            margin-left: 20px;
+            color: #777;
+            margin-bottom: 10px;
+            display: flex;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .description {
+            max-width: 300px;
+            margin-left: 20px;
+            color: #777;
+            margin-bottom: 10px;
+            display: flex;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     }
 }

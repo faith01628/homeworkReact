@@ -1,6 +1,6 @@
 import "../../styles/Login.scss"
 import React, { useState } from 'react';
-const Login = ({ onLogin }) => {
+const Login = ({ onLogin, error }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const handleSubmitlogin = (e) => {
@@ -20,25 +20,24 @@ const Login = ({ onLogin }) => {
     }
 
     return (
-        <div className="body">
-            <div className="box">
-                <h1>
-                    Login Page
-                </h1>
-                <div>
-                    <form onSubmit={handleSubmitlogin} >
-                        <div className="ipt-username">
-                            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Enter your Username" />
-                        </div>
-                        <div className="ipt-password">
-                            <input type="password" id="InputPass" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your Password" />
-                        </div>
-                        <div onClick={showpassword} >
-                            <input className="show-pass" type="checkbox" />Show Password
-                        </div>
-                        <div className="btn-login"><button>Login</button></div>
-                    </form>
-                </div>
+        <div className="box">
+            <h1>
+                Login Page
+            </h1>
+            <div>
+                <form onSubmit={handleSubmitlogin} >
+                    <div className="ipt-username">
+                        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Enter your Username" />
+                    </div>
+                    <div className="ipt-password">
+                        <input type="password" id="InputPass" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your Password" />
+                    </div>
+                    <div className="show-pass" onClick={showpassword} >
+                        <input type="checkbox" />Show Password
+                    </div>
+                    {error && <div className="text-error"><p>{error}</p></div>}
+                    <div className="btn-login"><button>Login</button></div>
+                </form>
             </div>
         </div>
     )

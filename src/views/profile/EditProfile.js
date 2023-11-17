@@ -42,31 +42,29 @@ const EditProfile = () => {
 
     return (
         <>
-            <div className="body">
-                <div className='profileEdit-container'>
-                    <h1>Update Profile</h1>
-                    <div className="profile-item">
-                        <div className="avata">
-                            <img src={userAvata} alt="avata" />
-                        </div>
-                        <div className="username">{localStorage.getItem('username')}</div>
-                        <div>
-                            <input value={avata} placeholder='Enter your link img' onChange={(e) => handleInputChange(e, setAvata)} />
-                        </div>
-                        <div className='email'>
-                            <input value={email} placeholder='Enter your email' onChange={(e) => handleInputChange(e, setEmail)} />
-                        </div>
-                        <div className='phone'>
-                            <input value={phone} placeholder='Enter your phone' onChange={(e) => handleInputChange(e, setPhone)} />
-                        </div>
-                        <div className='birthday'>
-                            <input value={birthday} placeholder='Enter your birthday' onChange={(e) => handleInputChange(e, setBirthday)} />
-                        </div>
-                        <div className='address'>
-                            <input value={address} placeholder='Enter your address' onChange={(e) => handleInputChange(e, setAddress)} />
-                        </div>
-                        <button onClick={handleUpdate}>Update</button>
+            <div className='profileEdit-container'>
+                <h1>Update Profile</h1>
+                <div className="profile-item">
+                    <div className="avata">
+                        <img src={userAvata} alt="avata" />
                     </div>
+                    <div className="username">{localStorage.getItem('username')}</div>
+                    <div>
+                        <input value={avata} placeholder='Enter your link img' onChange={(e) => handleInputChange(e, setAvata)} />
+                    </div>
+                    <div className='email'>
+                        <input value={email} placeholder='Enter your email' onChange={(e) => handleInputChange(e, setEmail)} />
+                    </div>
+                    <div className='phone'>
+                        <input value={phone} placeholder='Enter your phone' onChange={(e) => handleInputChange(e, setPhone)} />
+                    </div>
+                    <div className='birthday'>
+                        <input value={birthday} placeholder='Enter your birthday' onChange={(e) => handleInputChange(e, setBirthday)} />
+                    </div>
+                    <div className='address'>
+                        <input value={address} placeholder='Enter your address' onChange={(e) => handleInputChange(e, setAddress)} />
+                    </div>
+                    <button onClick={handleUpdate}>Update</button>
                 </div>
             </div>
         </>

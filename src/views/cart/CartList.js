@@ -4,14 +4,14 @@ import CartItem from "./CartItem";
 const CartList = ({ cart, onDelete, onPayNow }) => {
     if (cart.length === 0) {
         return (
-            <div>
+            <div className="cart-no-product">
                 <h1>Cart Page</h1>
                 <h3>You have no products in your cart</h3>
             </div>
         );
     } else {
         return (
-            <div className="body">
+            <div className="Cart-container">
                 <h1>Cart Page</h1>
                 <div className="cart-item">
                     <table>
