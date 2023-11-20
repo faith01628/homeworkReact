@@ -13,6 +13,7 @@ const SearchProductType = ({ ProductType }) => {
                     <option value="">All products</option>
                     <option value="laptop">Laptop</option>
                     <option value="mobile phone">Mobile Phone</option>
+                    {/* <option value="product_type">Mobile Phone</option>  -->product_type là trường ở trong file product.json <-- */}
                 </select>
             </form>
         </div>

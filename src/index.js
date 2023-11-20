@@ -4,12 +4,14 @@ import './styles/globle.scss';
 import App from './views/App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import Footer from './views/footer/Footer'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <App />
+      <Footer />
     </BrowserRouter>
   </React.StrictMode>
 );

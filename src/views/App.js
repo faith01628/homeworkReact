@@ -8,7 +8,6 @@ import CartList from './cart/CartList';
 import { ToastContainer, toast } from 'react-toastify';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Footer from './footer/Footer';
 import SearchName from './search/SearchName';
 import SearchPrice from './search/SearchPrice';
 import SearchProductType from './search/SearchProductType';
@@ -28,6 +27,7 @@ function App() {
   const [samsungProduct, setSamsungProduct] = useState([]);
   const [iphoneProduct, setIphoneProduct] = useState([]);
   const [asusProduct, setAsusProduct] = useState([]);
+  // const [brandProduct, setbrandProduct] = useState([]);  khởi tại 1 mãng để chưa brand khác trong file product.json
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -51,6 +51,7 @@ function App() {
         setSamsungProduct(productSamsung.filter(p => p.brand === "samsung").slice(0, 2));
         setIphoneProduct(productIphone.filter(p => p.brand === "iphone").slice(0, 2));
         setAsusProduct(productAsus.filter(p => p.brand === "asus").slice(0, 2));
+        //setbrandProduct(productbrand.filter(p => p.brand === "brand").slice(0, 2));   lấy giá trị từ dòng 31 xuống, brand trong ngoặc kép là nội dung của trường brand tham khảo ở trên
       })
       .catch((error) => console.log('error reading json', error));
   }, []);
@@ -215,9 +216,6 @@ function App() {
           theme="light"
         />
       </div>
-      <footer>
-        <Footer />
-      </footer>
     </div>
   );
 }
